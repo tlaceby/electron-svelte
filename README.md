@@ -1,9 +1,6 @@
 # Electron - Svelte - Typescript Setup Project Template
 Easily generate a boilerplate using modern svelte/electron and even typescript. Created by JSimplified for the electron tutorial series. Provides a easy starting point for any svelte/electron application.
 
-Has two templates:
--ts and -js
-
 ## Usage
 ```bash
 # Templates:
