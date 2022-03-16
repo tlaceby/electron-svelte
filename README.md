@@ -6,6 +6,9 @@ Has two templates:
 
 ## Usage
 ```bash
+# Templates:
+  * -ts: Typescript Support and Types
+  * -js: Javascript Scelte/Electron app.
 npx electron-svelte -template project-name
 ```
 
