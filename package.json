@@ -1,0 +1,21 @@
+{
+  "name": "electron-svelte",
+  "version": "1.2.0",
+  "description": "A simple and easy to use cli tool for generating modern templates for svelte and electron/ts.",
+  "main": "index.js",
+  "dependencies": {
+    "fs-extra": "^10.0.1",
+    "graceful-fs": "^4.2.9",
+    "jsonfile": "^6.1.0",
+    "universalify": "^2.0.0"
+  },
+  "bin": {
+    "electron-svelte": "./index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["svelte-electron","svelte", "electron-template", "electron-typescript-svelte"],
+  "author": "Tyler Laceby",
+  "license": "ISC"
+}
