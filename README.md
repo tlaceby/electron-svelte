@@ -1,5 +1,5 @@
-#Electron - Svelte - Typescript Setup Project Template
-Great for a modern starting off point for electron/svelte and typesccript development.
+# Electron - Svelte - Typescript Setup Project Template
+Great for a modern starting off point for electron/svelte and typesccript development. Requires NPX
 
 Has two templates:
 -ts and -js
