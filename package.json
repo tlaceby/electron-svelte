@@ -1,8 +1,8 @@
 {
   "name": "electron-svelte",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A simple and easy to use cli tool for generating modern templates for svelte and electron/ts.",
-  "main": "index.js",
+  "main": "./out/index.js",
   "dependencies": {
     "fs-extra": "^10.0.1",
     "graceful-fs": "^4.2.9",
@@ -10,10 +10,12 @@
     "universalify": "^2.0.0"
   },
   "bin": {
-    "electron-svelte": "./index.js"
+    "electron-svelte": "./out/index.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "publish": "npm run build && npm run test && npm publish"
   },
   "keywords": [
     "svelte-electron",
