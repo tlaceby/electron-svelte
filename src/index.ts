@@ -1,20 +1,25 @@
 #! /usr/bin/env node
 
-const { join } = require("path");
-const { copySync } = require("fs-extra");
-const { execSync, exec } = require("child_process");
-const { existsSync, readdirSync } = require("fs");
-const { cwd } = require("process");
+import { join }  from "path"
+import { copySync } from "fs-extra"
+import { execSync } from "child_process"
+import { existsSync, readdirSync } from "fs"
+import { cwd } from "process"
+import { ErrorOut, generate_help_options } from "./helpers"
 
 const Locations = {
     typescript: join (__dirname, "./templates/ts-elec-svelte"),
     javascript: join (__dirname, "./templates/js-elec-svelte"),
 }
 
-function ErrorOut () {
-    console.log("\nERROR:")
-    console.log(...arguments);
-    process.exit();
+async function validate_parameters () {
+    const args = process.argv;
+
+    const generate_options = generate_help_options();
+    console.log(generate_options)
+    if (args.length < 3)
+        ErrorOut("Invalid arguments use the -help flag to see all possible options.")
+
 }
 
 
@@ -53,22 +58,22 @@ async function validateParam () {
     return out;
 }
 
-async function createTemplate (location_src = Locations.typescript, location_dest) {
+async function createTemplate (location_src: string = Locations.typescript, location_dest: string) {
     try {
         copySync(location_src, location_dest)
-    } catch (err) {throw new Error(err) }
+    } catch (err) { ErrorOut(err) }
 
     try {
         console.log("* Created Template              [1/5]");
         console.log("* Installing dependecies         ");
-        const worker = execSync(`cd ${location_dest} && npm i`);
+        execSync(`cd ${location_dest} && npm i`);
         console.log("* Installed dependecies         [2/5]");
         setTimeout(() => {
             console.log("* Building Demo APP             [3/5]")
-            const worker2 = execSync(`cd ${location_dest} && npm run build`);
+            execSync(`cd ${location_dest} && npm run build`);
             console.log("* Finished Building Template    [4/5]\n")
             console.log("* Running Demo                  [5/5]\n")
-            const worker3 = execSync(`cd ${location_dest} && npm run start`);
+            execSync(`cd ${location_dest} && npm run start`);
         }, 700)
     } catch (err) {
         ErrorOut(err);
@@ -80,6 +85,9 @@ async function createTemplate (location_src = Locations.typescript, location_des
 
 
 async function main () {
+    const choice = await validate_parameters();
+    console.log("output: ", choice)
+    process.exit()
     const {src, out } = await validateParam();
     const template = createTemplate(src, out); 
 }
