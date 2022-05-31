@@ -1,27 +1,14 @@
 import { app, BrowserWindow, ipcMain, shell } from 'electron';
 import { join } from 'path';
-const DEV_MODE = !app.isPackaged;
+import setupHotReloading from './__hot-reload';
 
-// used for hot reloading of svelte and electron code.
-if (DEV_MODE) {
-	// only reload if flag is gone
-	if (process.argv[2] !== '--no-watch') {
-		import('electron-reload').then((electronReload) => {
-			electronReload.default(join(__dirname, '../../'), {
-				hardResetMethod: 'exit',
-				// change this to quit if you wanta  hard reload.
-				electron: app.getPath('exe'),
-			});
-			console.log('Hot Reloading Enabled!');
-		});
-	}
-}
-
+const DEV_MODE = !app.isPackaged
 let win: BrowserWindow;
 
+setupHotReloading(DEV_MODE);
 app.whenReady().then(main);
 
-// Create window and load HTML file.
+// Create window and load svelte app
 async function main() {
 	win = new BrowserWindow({
 		autoHideMenuBar: true, // disable to have default behavior
@@ -30,24 +17,30 @@ async function main() {
 		width: 800,
 		height: 650,
 		webPreferences: {
+			// make sure this is enabled for safer preloading.
 			contextIsolation: true,
 			devTools: true, // Dissable devtools if not packaged.
 			preload: join(__dirname, 'preload.js'),
 		},
-		show: false, // hide by default as to avoid slight flickering bug
+		show: false, // hide by default as to avoid flickering bug
 	});
 
-	// Load the svelte-app
-	win.loadFile(join(__dirname, '../../public/index.html'));
+	//////////////////////////////////////
+	// *************** EVENTS ************
+	//////////////////////////////////////
 
-	// show application when html is loaded.
+	win.loadFile(join(__dirname, '../../public/index.html'));
 	win.on('ready-to-show', win.show);
 
-	// handle custom IPC Events created in the preload.ts
+	// Common Window Events From Custom Title Bar
 	ipcMain.on('window/exit', () => app.quit());
 	ipcMain.on('window/minimize', () => win.minimize());
 	ipcMain.on('window/show', () => win.show());
 }
+
+	///////////////////////////////////
+	// ****** Inter Process Handlers **
+	///////////////////////////////////
 
 // handle external links
 ipcMain.on('open/url', (_, url: string) => shell.openExternal(url));
@@ -57,3 +50,13 @@ ipcMain.handle('versions/app', async () => app.getVersion());
 ipcMain.handle('versions/nodejs', async () => process.versions.node);
 ipcMain.handle('versions/chrome', async () => process.versions.chrome);
 ipcMain.handle('versions/electron', async () => process.versions.electron);
+
+
+/********************************************************************************************
+*********************************************************************************************
+*****
+*****   IF YOU LIKE THIS TEMPLATE AND WOULD LIKE TO SHOW SOME LOVE CONSIDER FOLLOWING ME  ***
+*****   ON YOUTUBE AND CHECKING OUT MY OTHER ELECTRON/SVELTE/DENO CONTENT.								***
+*****
+*********************************************************************************************
+********************************************************************************************/
