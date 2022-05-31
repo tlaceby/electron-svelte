@@ -1,6 +1,0 @@
-/node_modules/
-/public/build/
-
-/electron/node_modules
-
-.DS_Store
