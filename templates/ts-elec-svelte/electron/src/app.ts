@@ -1,16 +1,20 @@
-import { app, BrowserWindow, ipcMain, shell } from "electron";
-import { join } from "path";
+import { app, BrowserWindow, ipcMain, shell } from 'electron';
+import { join } from 'path';
 const DEV_MODE = !app.isPackaged;
 
 // used for hot reloading of svelte and electron code.
 if (DEV_MODE) {
-	import("electron-reload").then((electronReload) => {
-		electronReload.default(join(__dirname, "../../"), {
-			hardResetMethod: "exit",
-			// change this to quit if you wanta  hard reload.
-			electron: app.getPath("exe"),
+	// only reload if flag is gone
+	if (process.argv[2] !== '--no-watch') {
+		import('electron-reload').then((electronReload) => {
+			electronReload.default(join(__dirname, '../../'), {
+				hardResetMethod: 'exit',
+				// change this to quit if you wanta  hard reload.
+				electron: app.getPath('exe'),
+			});
+			console.log('Hot Reloading Enabled!');
 		});
-	});
+	}
 }
 
 let win: BrowserWindow;
@@ -26,29 +30,30 @@ async function main() {
 		width: 800,
 		height: 650,
 		webPreferences: {
-			devTools: DEV_MODE, // Dissable devtools if not packaged.
-			preload: join(__dirname, "preload.js"),
+			contextIsolation: true,
+			devTools: true, // Dissable devtools if not packaged.
+			preload: join(__dirname, 'preload.js'),
 		},
 		show: false, // hide by default as to avoid slight flickering bug
 	});
 
 	// Load the svelte-app
-	win.loadFile(join(__dirname, "../../public/index.html"));
+	win.loadFile(join(__dirname, '../../public/index.html'));
 
 	// show application when html is loaded.
-	win.on("ready-to-show", win.show);
+	win.on('ready-to-show', win.show);
 
 	// handle custom IPC Events created in the preload.ts
-	ipcMain.on("window/exit", () => win.close());
-	ipcMain.on("window/minimize", () => win.minimize());
-	ipcMain.on("window/show", () => win.show());
+	ipcMain.on('window/exit', () => app.quit());
+	ipcMain.on('window/minimize', () => win.minimize());
+	ipcMain.on('window/show', () => win.show());
 }
 
 // handle external links
-ipcMain.on("open/url", (_, url: string) => shell.openExternal(url));
+ipcMain.on('open/url', (_, url: string) => shell.openExternal(url));
 
 // Handle VERSION REQUESTS
-ipcMain.handle("versions/app", async () => app.getVersion());
-ipcMain.handle("versions/nodejs", async () => process.versions.node);
-ipcMain.handle("versions/chrome", async () => process.versions.chrome);
-ipcMain.handle("versions/electron", async () => process.versions.electron);
+ipcMain.handle('versions/app', async () => app.getVersion());
+ipcMain.handle('versions/nodejs', async () => process.versions.node);
+ipcMain.handle('versions/chrome', async () => process.versions.chrome);
+ipcMain.handle('versions/electron', async () => process.versions.electron);

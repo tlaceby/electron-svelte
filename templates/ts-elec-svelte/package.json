@@ -2,6 +2,7 @@
 	"name": "svelte-electron-typescript-boilerplate",
 	"version": "1.0.0",
 	"private": true,
+	"description": "A minmimal svelte-typescript & electron boilerplate template with built in hot-reloading and code formatting. Made with love by Tyler Laceby.",
 	"main": "./electron/out/app.js",
 	"repository": {
 		"url": "https://github.com/tylerlaceby/electron-svelte"
@@ -12,14 +13,16 @@
 		"url": "https://github.com/tylererlaceby"
 	},
 	"scripts": {
-		"package": "npm run build && electron-builder",
+		"dev": "rollup -c && cd electron && tsc && cd .. && electron . --no-watch",
+		"format": "npx prettier --write .",
+		"build": "npm run compile && npm run pack",
 		"watch": "concurrently \"npm:watch-ui\" \"npm:watch-app\"",
 		"watch-app": "cd electron && tsc -w",
 		"watch-ui": "rollup -c -w",
-		"build": "rollup -c && cd electron && tsc",
+		"check-ui": "svelte-check --tsconfig ./tsconfig.json",
+		"pack": "electron-builder -w",
 		"start": "electron .",
-		"start-ui": "sirv public --no-clear",
-		"check-ui": "svelte-check --tsconfig ./tsconfig.json"
+		"compile": "rollup -c && cd electron && tsc && cd .."
 	},
 	"devDependencies": {
 		"@rollup/plugin-commonjs": "^17.0.0",
@@ -27,8 +30,10 @@
 		"@rollup/plugin-typescript": "^8.0.0",
 		"@tsconfig/svelte": "^2.0.0",
 		"concurrently": "^7.2.1",
-		"electron": "^17.1.2",
+		"electron": "^19.0.0",
 		"electron-builder": "^22.14.13",
+		"prettier": "2.6.2",
+		"prettier-plugin-svelte": "^2.7.0",
 		"rollup": "^2.3.4",
 		"rollup-plugin-css-only": "^3.1.0",
 		"rollup-plugin-livereload": "^2.0.0",
@@ -38,10 +43,10 @@
 		"svelte-check": "^2.0.0",
 		"svelte-preprocess": "^4.0.0",
 		"tslib": "^2.0.0",
+		"electron-reload": "^2.0.0-alpha.1",
 		"typescript": "^4.0.0"
 	},
 	"dependencies": {
-		"electron-reload": "^2.0.0-alpha.1",
 		"sirv-cli": "^2.0.0",
 		"svelte-spa-router": "^3.2.0"
 	}
