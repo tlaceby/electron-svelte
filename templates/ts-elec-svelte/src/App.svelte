@@ -1,15 +1,20 @@
 <script lang='ts'>
-	import { onMount } from "svelte";
-	import api from "./api";
+	import Router from "svelte-spa-router";
+	import Home from "./components/home/Home.svelte";
+	import Navigation from "./components/Navigation.svelte";
+	import Versions from "./components/Versions.svelte";
 
-	let appVersion = "";
 
-	onMount(async () => appVersion = await api.getVersion());
-	
+	const routes = {
+		"/": Home,
+		"/versions": Versions
+	}
+
 </script>
 
 
 <main>
-	<h1>Electron/Svelte/Typescript Template</h1>
-	<h1>App Version: {appVersion}</h1>
+	<Navigation />
+	<Router {routes} />
 </main>
+

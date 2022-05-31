@@ -1,37 +1,49 @@
 {
-  "name": "svelte-app",
-  "version": "1.0.0",
-  "private": true,
-  "main": "./electron/out/app.js",
-  "scripts": {
-    "package": "electron-builder",
-    "build-ui": "rollup -c",
-    "dev-ui": "rollup -c -w",
-    "build": "npm run build-ui && cd electron && tsc",
-    "dev": "npm run build && electron .",
-    "start": "electron .",
-    "start-ui": "sirv public --no-clear",
-    "check-ui": "svelte-check --tsconfig ./tsconfig.json"
-  },
-  "devDependencies": {
-    "@rollup/plugin-commonjs": "^17.0.0",
-    "@rollup/plugin-node-resolve": "^11.0.0",
-    "@rollup/plugin-typescript": "^8.0.0",
-    "@tsconfig/svelte": "^2.0.0",
-    "electron": "^17.1.2",
-    "electron-builder": "^22.14.13",
-    "rollup": "^2.3.4",
-    "rollup-plugin-css-only": "^3.1.0",
-    "rollup-plugin-livereload": "^2.0.0",
-    "rollup-plugin-svelte": "^7.0.0",
-    "rollup-plugin-terser": "^7.0.0",
-    "svelte": "^3.0.0",
-    "svelte-check": "^2.0.0",
-    "svelte-preprocess": "^4.0.0",
-    "tslib": "^2.0.0",
-    "typescript": "^4.0.0"
-  },
-  "dependencies": {
-    "sirv-cli": "^2.0.0"
-  }
+	"name": "svelte-electron-typescript-boilerplate",
+	"version": "1.0.0",
+	"private": true,
+	"main": "./electron/out/app.js",
+	"repository": {
+		"url": "https://github.com/tylerlaceby/electron-svelte"
+	},
+	"author": {
+		"email": "tylerbadgertutorials@gmail.com",
+		"name": "Tyler Laceby",
+		"url": "https://github.com/tylererlaceby"
+	},
+	"scripts": {
+		"package": "electron-builder",
+		"dev": "npm run build && electron .",
+		"watch": "concurrently \"npm:watch-ui\" \"npm:watch-app\"",
+		"watch-app": "cd electron && tsc -w",
+		"watch-ui": "rollup -c -w",
+		"build": "rollup -c && cd electron && tsc",
+		"start": "electron .",
+		"start-ui": "sirv public --no-clear",
+		"check-ui": "svelte-check --tsconfig ./tsconfig.json"
+	},
+	"devDependencies": {
+		"@rollup/plugin-commonjs": "^17.0.0",
+		"@rollup/plugin-node-resolve": "^11.0.0",
+		"@rollup/plugin-typescript": "^8.0.0",
+		"@tsconfig/svelte": "^2.0.0",
+		"concurrently": "^7.2.1",
+		"electron": "^17.1.2",
+		"electron-builder": "^22.14.13",
+		"rollup": "^2.3.4",
+		"rollup-plugin-css-only": "^3.1.0",
+		"rollup-plugin-livereload": "^2.0.0",
+		"rollup-plugin-svelte": "^7.0.0",
+		"rollup-plugin-terser": "^7.0.0",
+		"svelte": "^3.0.0",
+		"svelte-check": "^2.0.0",
+		"svelte-preprocess": "^4.0.0",
+		"tslib": "^2.0.0",
+		"typescript": "^4.0.0"
+	},
+	"dependencies": {
+		"electron-reload": "^2.0.0-alpha.1",
+		"sirv-cli": "^2.0.0",
+		"svelte-spa-router": "^3.2.0"
+	}
 }
