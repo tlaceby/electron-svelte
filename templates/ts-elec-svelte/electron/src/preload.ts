@@ -8,7 +8,7 @@ const WindowAPIS = {
 };
 
 const VersionAPIS = {
-	app: (): Promise<string> => ipcRenderer.invoke("versionsapp"), // gets read from package.json
+	app: (): Promise<string> => ipcRenderer.invoke("versions/app"), // gets read from package.json
 	electron: (): Promise<string> => ipcRenderer.invoke("versions/electron"),
 	nodejs: (): Promise<string> => ipcRenderer.invoke("versions/nodejs"),
 	chrome: (): Promise<string> => ipcRenderer.invoke("versions/chrome"),

@@ -1,7 +1,6 @@
 <script lang="ts">
-  import { link, location } from "svelte-spa-router";
+  import { link, location } from "svelte-spa-router"
 import api from "../api";
-import app from "../main";
 </script>
 
 
@@ -22,7 +21,7 @@ import app from "../main";
     width: 100vw;
     display: flex;
     justify-content: space-between;
-    background-color: var(--bg-color);
+    background-color: var(--bg-color)
   }
 
   .inline-nav {

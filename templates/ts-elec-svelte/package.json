@@ -12,8 +12,7 @@
 		"url": "https://github.com/tylererlaceby"
 	},
 	"scripts": {
-		"package": "electron-builder",
-		"dev": "npm run build && electron .",
+		"package": "npm run build && electron-builder",
 		"watch": "concurrently \"npm:watch-ui\" \"npm:watch-app\"",
 		"watch-app": "cd electron && tsc -w",
 		"watch-ui": "rollup -c -w",

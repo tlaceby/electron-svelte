@@ -6,9 +6,8 @@ const DEV_MODE = !app.isPackaged;
 if (DEV_MODE) {
 	import("electron-reload").then((electronReload) => {
 		electronReload.default(join(__dirname, "../../"), {
-			hardResetMethod: "quit",
-			forceHardReset: true,
-			awaitWriteFinish: true,
+			hardResetMethod: "exit",
+			// change this to quit if you wanta  hard reload.
 			electron: app.getPath("exe"),
 		});
 	});
@@ -47,3 +46,9 @@ async function main() {
 
 // handle external links
 ipcMain.on("open/url", (_, url: string) => shell.openExternal(url));
+
+// Handle VERSION REQUESTS
+ipcMain.handle("versions/app", async () => app.getVersion());
+ipcMain.handle("versions/nodejs", async () => process.versions.node);
+ipcMain.handle("versions/chrome", async () => process.versions.chrome);
+ipcMain.handle("versions/electron", async () => process.versions.electron);
