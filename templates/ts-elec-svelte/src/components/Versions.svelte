@@ -2,18 +2,10 @@
 	import { onMount } from 'svelte/internal';
 	import { api } from '../api';
 
-  let electronVersion = "";
-  let nodejsVersion= "";
-  let projectVersion= "";
-  let chromeVersion= "";
-  
-  onMount(async () => {
-    const ipcCalls = [
-      api.Versions.electron(),
-      api.Versions.chrome(),
-      api.Versions.nodejs(),
-      api.Versions.app()
-    ];
+	let electronVersion = '';
+	let nodejsVersion = '';
+	let projectVersion = '';
+	let chromeVersion = '';
 
 	// Get Versions Using IPC
 	onMount(async () => {
