@@ -1,31 +1,52 @@
 {
-	"name": "electron-svelte",
-	"version": "1.4.0",
-	"description": "A simple and easy to use cli tool for generating modern templates for svelte/electron/ts.",
-	"main": "./src/index.js",
-	"dependencies": {
-		"fs-extra": "^10.0.1",
-		"graceful-fs": "^4.2.9",
-		"jsonfile": "^6.1.0",
-		"universalify": "^2.0.0"
-	},
-	"bin": {
-		"electron-svelte": "./src/index.js"
-	},
-	"scripts": {
-		"publish": "npm publish"
-	},
-	"keywords": [
-		"svelte-electron",
-		"svelte",
-		"electron-template",
-		"electron-typescript-svelte"
-	],
-	"author": "Tyler Laceby",
-	"license": "ISC",
-	"devDependencies": {
-		"@types/fs-extra": "^9.0.13",
-		"@types/node": "^17.0.21",
-		"typescript": "^4.6.2"
-	}
+  "name": "electron-svelte",
+  "version": "0.0.1",
+  "description": "A simple electron/svelte/electron-builder template for building cross platform apps.",
+  "main": "dist/electron/app.js",
+  "scripts": {
+    "dev": "npm run dev:renderer & npm run dev:electron",
+    "package": "(npm run build:renderer & npm run build:electron) && electron-builder",
+    "build:electron": "cd electron && tsc",
+    "build:renderer": "cd renderer && npm run build",
+    "dev:renderer": "cd renderer && npm run dev",
+    "dev:electron": "npm run build:electron && electron ."
+  },
+  "build": {
+    "appId": "your.app.id",
+    "productName": "YourProductName",
+    "directories": {
+      "output": "build"
+    },
+    "files": [
+      "dist/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "path/to/your/icon/icon.ico"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "path/to/your/icon/icon.icns"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tlaceby/electron-svelte.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tlaceby/electron-svelte/issues"
+  },
+  "homepage": "https://github.com/tlaceby/electron-svelte#readme",
+  "devDependencies": {
+    "electron": "^28.2.3",
+    "electron-builder": "^24.9.1"
+  }
 }

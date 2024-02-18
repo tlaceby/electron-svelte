@@ -1,27 +1,25 @@
-# Electron - Svelte - Typescript Setup Project Template
+## Electron-Svelte Template
 
-Easily generate a boilerplate using modern svelte/electron and typescript. Created by JSimplified for the electron tutorial series. Provides a easy starting point for any svelte/electron application.
+This template provides a solid begining for a electron/typescript/svelte application. To get started you will need to install dependecies in both the root of the project and the `renderer/` folder where all of the svelte code is.
 
-No clutter, No BS and simple to get started with template.
+Folder structure:
 
-## Features
+- **/**
+  - readme.md
+  - package.json
+  - **electron** `(Contains all the electron specific code of the application)`
+    - app.ts
+    - preload.ts `(Sets up comminication between renderer and main process in electron (IPC))`
+    - tsconfig.json `(Electron specific tsconfig file.)`
+    - ...
+  - **renderer** `(Contains all code/configs which are required for the frontend of your app)`
+    - **src**
+    - vite.config.json
+    - package.json
+    - ...
 
-- Hot reloading
-- TypeScript
-- Electron Builder
-- Svelte w/TypeScript
-- Prettier
+### Commands
 
-## Usage
+- `npm run dev` will begin watching the renderer folder for changes and run the electron app in development mode.
 
-```bash
-npx electron-svelte project-name
-```
-
-## My Links
-
-https://www.youtube.com/c/JSimplified - JSimplified on YouTube
-
-- Over 40+ electron and svelte tutorials. Including alot of features incorporated in this template.
-
-https://discord.gg/REmSBbhp JSimplified Community Discord server
+- `npm run package` will package the application according to the **build** section in the package.json file. This uses **electron-builder** for packaging the application for all major platforms.
