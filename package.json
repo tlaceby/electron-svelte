@@ -4,8 +4,8 @@
   "description": "A simple electron/svelte/electron-builder template for building cross platform apps.",
   "main": "dist/electron/app.js",
   "scripts": {
-    "dev": "npm run dev:renderer & npm run dev:electron",
-    "package": "(npm run build:renderer & npm run build:electron) && electron-builder",
+    "dev": "concurrently --kill-others \"npm run dev:renderer\" \"npm run dev:electron\"",
+    "package": "npm run build:renderer && npm run build:electron && electron-builder",
     "build:electron": "cd electron && tsc",
     "build:renderer": "cd renderer && npm run build",
     "dev:renderer": "cd renderer && npm run dev",
@@ -46,6 +46,7 @@
   },
   "homepage": "https://github.com/tlaceby/electron-svelte#readme",
   "devDependencies": {
+    "concurrently": "^8.2.2",
     "electron": "^28.2.3",
     "electron-builder": "^24.9.1"
   }
