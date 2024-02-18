@@ -1,6 +1,6 @@
 import { contextBridge } from "electron";
 
-const CONTEXT_BRIDGE = {
+export const CONTEXT_BRIDGE = {
   foo: 45,
 };
 
