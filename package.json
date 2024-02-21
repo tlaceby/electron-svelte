@@ -9,7 +9,8 @@
     "build:electron": "cd electron && tsc",
     "build:renderer": "cd renderer && npm run build",
     "dev:renderer": "cd renderer && npm run dev",
-    "dev:electron": "npm run build:electron && electron ."
+    "dev:electron": "npm run build:electron && electron .",
+    "format": "prettier --write ."
   },
   "build": {
     "appId": "your.app.id",
@@ -17,10 +18,7 @@
     "directories": {
       "output": "build"
     },
-    "files": [
-      "dist/**/*",
-      "package.json"
-    ],
+    "files": ["dist/**/*", "package.json"],
     "win": {
       "target": "nsis",
       "icon": "path/to/your/icon/icon.ico"
@@ -48,6 +46,8 @@
   "devDependencies": {
     "concurrently": "^8.2.2",
     "electron": "^28.2.3",
-    "electron-builder": "^24.9.1"
+    "electron-builder": "^24.9.1",
+    "prettier": "^3.2.5",
+    "prettier-plugin-svelte": "^3.2.1"
   }
 }
