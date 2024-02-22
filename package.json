@@ -4,7 +4,7 @@
   "description": "A simple electron/svelte/electron-builder template for building cross platform apps.",
   "main": "dist/electron/app.js",
   "scripts": {
-    "dev": "concurrently --kill-others \"npm run dev:renderer\" \"npm run dev:electron\"",
+    "dev": "concurrently --kill-others \"npm run dev:renderer\" \"npm run dev:electron\" \"cd electron && tsc -w\"",
     "package": "npm run build:renderer && npm run build:electron && electron-builder",
     "build:electron": "cd electron && tsc",
     "build:renderer": "cd renderer && npm run build",
@@ -49,5 +49,8 @@
     "electron-builder": "^24.9.1",
     "prettier": "^3.2.5",
     "prettier-plugin-svelte": "^3.2.1"
+  },
+  "dependencies": {
+    "electron-reload": "^2.0.0-alpha.1"
   }
 }
