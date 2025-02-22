@@ -1,11 +1,11 @@
 <script lang="ts">
   import ipc from "./ipc";
 
-  let electronVersion: string;
-  let nodeVersion: string;
+  let electronVersion: string = $state("");
+  let nodeVersion: string = $state("");
 
-  $: nodeVersionTxt = nodeVersion ? `Node: ${nodeVersion}` : "Node Version";
-  $: electronVersionTxt = electronVersion ? `Electron: ${electronVersion}` : "Electron Version";
+  let nodeVersionTxt = $derived(nodeVersion ? `Node: ${nodeVersion}` : "Node Version");
+  let electronVersionTxt = $derived(electronVersion ? `Electron: ${electronVersion}` : "Electron Version");
 
   async function getVersion(opt: "electron" | "node") {
     const version = await ipc.getVersion(opt);
@@ -22,7 +22,7 @@
   <h1>Electron + Svelte</h1>
 
   <div class="buttons">
-    <button class="btn" on:click={() => getVersion("node")}>{nodeVersionTxt}</button>
-    <button class="btn" on:click={() => getVersion("electron")}>{electronVersionTxt}</button>
+    <button class="btn" onclick={() => getVersion("node")}>{nodeVersionTxt}</button>
+    <button class="btn" onclick={() => getVersion("electron")}>{electronVersionTxt}</button>
   </div>
 </main>
